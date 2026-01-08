@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>term project 10주차</title>
+    <style>
+        /* body 스타일 */
+        body{
+            display:flex;
+            flex-direction: column;
+            
+        }
+        /* table 스타일 */
+        table{
+            text-align: center;
+            width:1000px;
+            height:2000px;
+            background-image: url('media_term/낮.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            margin:10% 40%;
+        }
+        /* 체크박스 숨기기 */
+        input[type=checkbox]{
+            visibility:hidden;
+        }
+        /* label 스타일 */
+        label{
+            display:inline-block;
+            width:100%;
+            height:100%;
+        }
+        /* hover 가상 셀렉터 */
+        label.label1:hover{
+            background-color: rgba(255, 0, 0, 0.262);
+        }       
+        label.label2:hover{
+            background-color: rgba(255, 102, 0, 0.262);
+        } 
+        label.label3:hover{
+            background-color: rgba(89, 255, 0, 0.262);
+        }         
+        label.label4:hover{
+            background-color: rgba(0, 34, 255, 0.262);
+        }         
+        label.label5:hover{
+            background-color: rgba(187, 0, 255, 0.262);
+        }         
+        /* active 가상 셀렉터 */
+        label:active{
+            transform: scale(0.95);
+        }
+        /* form 스타일 */
+        form{
+            display:none;
+            width:100%;
+            height:auto;
+            font-size:100px;
+            margin-bottom:10%;
+        }
+        /* 이름 입력칸 스타일 */
+        input{
+            width:100%;
+            height:100%;
+            font-size:100px;
+        }
+        /* 이름 필수 입력 스타일 requird 가상셀렉터 사용*/
+        input:required{
+            border:3px solid orange;
+        }
+        /* placeholder 가상셀렉터 사용 */
+        input::placeholder{
+            color:orange;
+            font-style:italic;
+        }
+        /* 애니메이션 */
+        @keyframes shake{
+            0% {transform:translate(0);}
+            25%{transform: translateX(-10px);}
+            50%{transform:translateX(10px);}
+            75%{transform:translateX(-10px);}
+            100%{transform:translateX(0);}
+        }
+        /* 이름 입력 안 했을 때 스타일 placeholder-shown, focus 가상 셀렉터 사용 */
+        input:placeholder-shown:focus{
+            animation:shake 1s;
+        }
+        /* select 스타일 */
+        select{
+            width:100%;
+            height:100%;
+            font-size:100px;
+        }
+        /* fiedlset 스타일 */
+        fieldset{
+            height:50%;
+            padding:0;
+        }
+        /* selection 가상 셀렉터 사용 */
+        ::selection{
+            background-color:black;
+            color:white;
+        }
+        /* checked after 가상 셀렉터 사용 */
+        #check9:checked~div::after{
+            content:"🗼";
+            font-size:100px;
+        }
+    </style>
+    <script>
+        //다크모드 변경 함수
+        function night(){
+            let body=document.body;
+            if(body.style.backgroundColor==''){
+                body.style.backgroundColor='black';
+                body.style.color='white';
+                document.querySelector('table').style.backgroundImage="url('media_term/밤.png')";
+
+            }else if(body.style.backgroundColor=='black'){
+                body.style.backgroundColor='';
+                body.style.color='black'
+                document.querySelector('table').style.backgroundImage="url('media_term/낮.jpg')";
+            }
+        }
+        //form 보이기/숨기기 함수
+        function reserv(){
+            let f=document.getElementById('fo');
+            if(f.style.display=='none'||f.style.display==''){
+                f.style.display='block';
+        }else if(f.style.display=='block'){
+            f.style.display='none';
+        }
+    }
+        //예약 성공/실패 함수
+        function submitbutton(){
+        let na=document.getElementById('name').value;
+        if(na==''||na==null){
+            alert('이름을 입력해주세요.')
+        }else{
+            alert(na+'님 예약 성공')
+        }
+    }
+    </script>
+</head>
+<body>
+    <main>
+        <section>
+            <!-- 체크박스 -->
+            <input type="checkbox" name="box" id="1" onclick="reserv()">
+            <input type="checkbox" name="box" id="2">
+            <input type="checkbox" name="box" id="3">
+            <input type="checkbox" name="box" id="4">
+            <input type="checkbox" name="box" id="5" onclick="night()">
+            <input type="checkbox" name="box" id="6">
+            <input type="checkbox" name="box" id="7">
+            <input type="checkbox" name="box" id="8">
+            
+            <!-- table -->
+            <table>
+                <tbody>
+                    <tr>
+                        <td><label for='1' class="label1"></label></td>
+                        <td><label for='2' class="label2"></label></td>
+                        <td><label for='3' class="label3"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label for='4' class="label2"></label></td>
+                        <td><label for='5' class="label3"></label></td>
+                        <td><label for='6' class="label4"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label for='7' class="label3"></label></td>
+                        <td><label for='8' class="label4"></label></td>
+                        <td><label for='check9' class="label5"></label></td>
+                    </tr>                        
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <!-- 예약 폼 -->
+            <form id="fo">
+                <input type="checkbox" name="box" id="check9">
+                <div id="d"></div>
+                <fieldset>
+                    <legend>
+                        기본 정보
+                    </legend>
+                    <input type="text" placeholder="이름" required id="name">
+                </fieldset>
+                <fieldset>
+                    <legend>예약</legend>
+                    <select>
+                        <option>10:00-11:00</option>
+                        <option>11:00-12:00</option>
+                        <option>12:00-13:00</option>
+                    </select>
+                </fieldset>
+                <input type='submit' onclick="submitbutton()">
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>
